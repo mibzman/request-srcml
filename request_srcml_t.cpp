@@ -16,5 +16,14 @@ int main() {
     	assert(request_language(request, "") == "");
     }
 
+	// not a source code archive, just a regular old file
+    {
+        srcml_request request = { "", "main.cpp", "data", ""};
+        std::string result_filename = request_filename(request);
+        assert(result_filename == "main.cpp");
+        assert(request_language(request, result_filename) == "C++");
+    }
+
+
     return 0;
 }
