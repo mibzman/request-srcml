@@ -6,6 +6,7 @@
 
 #include "request_srcml.hpp"
 #include <cassert>
+#include <iostream>
 
 int main() {
 
@@ -62,6 +63,16 @@ int main() {
         assert(request_language(request, result_filename) == "C++");
     }
 
+
+    /* error cases */
+
+        //stdin with option language
+    {
+        srcml_request request = { "", "main.dpp", "data", ""};
+        std::string result_filename = request_filename(request);
+        assert(request_language(request, result_filename) == "");
+        assert(!generate_srcml(request));
+    }
 
     return 0;
 }

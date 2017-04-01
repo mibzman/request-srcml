@@ -40,11 +40,17 @@ std::string request_language(const srcml_request& request, const std::string& fi
 }
 
 // generates srcML based on the request
-void generate_srcml(const srcml_request& request) {
+bool generate_srcml(const srcml_request& request) {
 
 	std::string filename = request_filename(request);
 
 	std::string language = request_language(request, filename);
 
+        if (language == "") {
+            return false;
+        }
+
+
 	// srcML generation code that is not available yet
+	return true;
 }
