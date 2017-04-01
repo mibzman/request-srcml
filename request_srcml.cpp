@@ -11,7 +11,7 @@
 std::string request_filename(const srcml_request& request) {
 
     // TODO: determine the proper filename from the request
-    std::string filename;
+    std::string filename = request.entry_filename;
 
     if (request.option_filename != "") {
         return request.option_filename;
