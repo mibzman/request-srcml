@@ -24,11 +24,33 @@ int main() {
         assert(request_language(request, result_filename) == "C++");
     }
 
-	//language based on option
+	//filename based on option
     {
         srcml_request request = { "main.cpp", "ignoreMe.cpp", "data", ""};
         std::string result_filename = request_filename(request);
         assert(result_filename == "main.cpp");
+        assert(request_language(request, result_filename) == "C++");
+    }
+
+	//language based on option
+    {
+        srcml_request request = { "", "main.dpp", "data", "C++"};
+        std::string result_filename = request_filename(request);
+        assert(request_language(request, result_filename) == "C++");
+    }
+
+	//stdin with option filename
+    {
+        srcml_request request = { "main.cpp", "-", "data", ""};
+        std::string result_filename = request_filename(request);
+        assert(result_filename == "main.cpp");
+        assert(request_language(request, result_filename) == "C++");
+    }
+
+        //stdin with option language
+    {
+        srcml_request request = { "", "-", "data", "C++"};
+        std::string result_filename = request_filename(request);
         assert(request_language(request, result_filename) == "C++");
     }
 
