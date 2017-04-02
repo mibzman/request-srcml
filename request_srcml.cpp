@@ -6,11 +6,11 @@
 
 #include "request_srcml.hpp"
 #include "get_language_from_filename.hpp"
+#include <iostream>
 
 // extracts the filename to use from the request
 std::string request_filename(const srcml_request& request) {
 
-    // TODO: determine the proper filename from the request
     std::string filename = request.entry_filename;
 
     if (request.option_filename != "") {
@@ -21,13 +21,16 @@ std::string request_filename(const srcml_request& request) {
         filename = request.local_filename;
     }
 
+    if (request.local_filename == "-") {
+        filename = "";
+    }
+
     return filename;
 }
 
 // extracts the language to use from the request, and the filename
 std::string request_language(const srcml_request& request, const std::string& filename) {
 
-    // TODO: determine the proper filename from the request
     std::string language;
 
     if (request.option_language != "") {
@@ -46,7 +49,13 @@ bool generate_srcml(const srcml_request& request) {
 
 	std::string language = request_language(request, filename);
 
+        if (filename == "" && language == "") {
+            std::cerr << "Using stdin requires a declared language" << std::endl;
+            return false;
+        }
+
         if (language == "") {
+            std::cerr << "Extension not supported" << std::endl;
             return false;
         }
 

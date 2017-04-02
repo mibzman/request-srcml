@@ -6,7 +6,6 @@
 
 #include "request_srcml.hpp"
 #include <cassert>
-#include <iostream>
 
 int main() {
 
@@ -63,16 +62,31 @@ int main() {
         assert(request_language(request, result_filename) == "C++");
     }
 
+        //stdin with no data
+    {
+        srcml_request request = { "", "-", "data", ""};
+        std::string result_filename = request_filename(request);
+        assert(result_filename == "");
+        assert(request_language(request, result_filename) == "");
+    }
+
 
     /* error cases */
 
-        //stdin with option language
+        //unknown extention error
     {
         srcml_request request = { "", "main.dpp", "data", ""};
         std::string result_filename = request_filename(request);
-        assert(request_language(request, result_filename) == "");
+        //assert(request_language(request, result_filename) == "");
         assert(!generate_srcml(request));
     }
+
+        //std no lang error
+    {
+        srcml_request request = { "", "-", "data", ""};
+        assert(!generate_srcml(request));
+    }
+
 
     return 0;
 }
