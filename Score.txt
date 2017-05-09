@@ -1,0 +1,15 @@
+Score: 98
+
+* Could use some comments describing the rules for each if statement
+* Is the variable language in request_language() needed? Just return.
+* Messy indentation in generate_srcml() -2
+
+Build and test results:
+g++ -c request_srcml_t.cpp
+g++ request_srcml_t.o request_srcml.o get_language_from_filename.o -o request_srcml_t
+./get_language_from_filename_t
+./request_srcml_t
+
+My request_srcml_t.cpp file used for testing your code, along with several implementations of request_filename() and request_language(), can be found at:
+
+	https://gist.github.com/mlcollard/7e499f064a3b4d637b5369fae08cb201
